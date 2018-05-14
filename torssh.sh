@@ -19,6 +19,7 @@ shift $((OPTIND-1))
 
 if [ "$#" -lt 1 ] ; then
   echo "Usage: $0 -p options user@host commands"
+  exit
 fi
 
 temp_fp=$(mktemp)
