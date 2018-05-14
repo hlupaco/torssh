@@ -39,7 +39,7 @@ host=$(echo "$1" | cut -d'@' -f2 | cut -d' ' -f1)
 shift
 
 echo '
-Host temphost_'"${temp_num}"'
+Host torhost
   HostName '"${host}"'
   CheckHostIP no
   Compression yes
@@ -52,6 +52,6 @@ if [ "${prepare_only}" = "y" ] ; then
   exit 0
 fi
 
-eval "ssh -F ${temp_fp} ${ssh_opts} ${user}@temphost_${temp_num} $@"
+eval "ssh -F ${temp_fp} ${ssh_opts} ${user}@torhost $@"
 
 rm "${temp_fp}"
