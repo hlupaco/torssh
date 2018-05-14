@@ -23,6 +23,7 @@ if [ "$#" -lt 1 ] ; then
 fi
 
 temp_fp=$(mktemp)
+temp_num=$(echo "${temp_fp}" | cut -d'.' -f2)
 
 arg_act="$1"
 ssh_opts=""
@@ -38,7 +39,7 @@ host=$(echo "$1" | cut -d'@' -f2 | cut -d' ' -f1)
 shift
 
 echo '
-Host torhost
+Host temphost_'"${temp_num}"'
   HostName '"${host}"'
   CheckHostIP no
   Compression yes
@@ -51,6 +52,6 @@ if [ "${prepare_only}" = "y" ] ; then
   exit 0
 fi
 
-eval "ssh -F ${temp_fp} ${ssh_opts} ${user}@torhost $@"
+eval "ssh -F ${temp_fp} ${ssh_opts} ${user}@temphost_${temp_num} $@"
 
 rm "${temp_fp}"
